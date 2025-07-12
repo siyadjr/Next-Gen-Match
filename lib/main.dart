@@ -1,15 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:next_gen_match/Core/Secured/api_keys.dart';
-import 'package:next_gen_match/Features/auth/pages/splash_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:next_gen_match/Features/auth/provider/auth_provider.dart';
+import 'package:next_gen_match/firebase_options.dart';
+import 'package:provider/provider.dart';
+import 'Features/auth/pages/screens/screen_sign_in.dart';
 
-void main() async {
+void main()async {
+
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(
-    url: ApiKeys.supbaseUrl,
-    anonKey: ApiKeys.supabaseAnonKey,
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        // Add more providers here if needed
+      ],
+      child: const MyApp(),
+    ),
   );
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,9 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: const ScreenSignIn(),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
-      title: 'Next Gen Match',
     );
   }
 }

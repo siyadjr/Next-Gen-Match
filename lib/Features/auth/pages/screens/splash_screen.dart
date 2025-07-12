@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:next_gen_match/Core/Theme/app_colours.dart';
-import 'package:next_gen_match/Features/auth/pages/screen_sign_in.dart';
+import 'package:next_gen_match/Features/auth/pages/screens/screen_sign_in.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

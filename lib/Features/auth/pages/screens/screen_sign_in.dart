@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:next_gen_match/Core/Theme/app_colours.dart';
+import 'package:next_gen_match/Features/auth/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class ScreenSignIn extends StatelessWidget {
   const ScreenSignIn({super.key});
@@ -61,21 +63,32 @@ class ScreenSignIn extends StatelessWidget {
               // Sign In Button
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // TODO: Add your login logic here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        AppColours.secondaryColour, // your brand color
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                child: Consumer<AuthProvider>(
+                  builder: (context, provider, child) => ElevatedButton(
+                    onPressed: () {
+               
+                      provider.signIn(
+                        mailController.text.trim(),
+                        passwordController.text.trim(),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          AppColours.secondaryColour, // your brand color
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
-                  ),
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    child: provider.isLoading
+                        ? CircularProgressIndicator()
+                        : Text(
+                            'Sign In',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                   ),
                 ),
               ),
