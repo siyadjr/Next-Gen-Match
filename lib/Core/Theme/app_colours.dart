@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+  
 class AppColours {
-  static const mainBackGround= Color.fromRGBO(244, 54, 136, 1);
+  static const mainBackGround = Color.fromRGBO(244, 54, 136, 1);
+  static const secondaryColour = Color.fromRGBO(255, 255, 255, 1);
 }
