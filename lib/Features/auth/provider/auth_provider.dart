@@ -6,15 +6,38 @@ class AuthProvider with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  Future<void> signIn(String email, String password) async {
-    _isLoading = true;
-    notifyListeners();
+Future<bool> signIn(String email, String password) async {
+  _isLoading = true;
+  notifyListeners();
 
-    // Simulated delay (replace with your login logic)
-    await AuthServices().signUpUser(email, password);
-    await Future.delayed(const Duration(seconds: 2));
-
+  try {
+    await AuthServices().signInUser(email, password);
     _isLoading = false;
     notifyListeners();
+    return true;
+  } catch (e) {
+    print('Sign in failed: $e');
+    _isLoading = false;
+    notifyListeners();
+    return false;
+  }
+}
+
+
+  Future<bool> signUp(String email, String password) async {
+   _isLoading = true;
+  notifyListeners();
+
+  try {
+    await AuthServices().signUpUser(email, password);
+    _isLoading = false;
+    notifyListeners();
+    return true;
+  } catch (e) {
+    print('Sign up failed: $e');
+    _isLoading = false;
+    notifyListeners();
+    return false;
+  }
   }
 }

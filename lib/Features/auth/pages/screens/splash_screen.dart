@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
           children: [
             Icon(Icons.home, size: 30),
             Text(
-              "Couple Detector ",
+              "NextGen Match",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ],

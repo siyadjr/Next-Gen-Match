@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:next_gen_match/Features/auth/pages/screens/splash_screen.dart';
 import 'package:next_gen_match/Features/auth/provider/auth_provider.dart';
 import 'package:next_gen_match/firebase_options.dart';
 import 'package:provider/provider.dart';
-import 'Features/auth/pages/screens/screen_sign_in.dart';
 
 void main()async {
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const ScreenSignIn(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

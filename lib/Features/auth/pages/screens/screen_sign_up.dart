@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:next_gen_match/Core/Theme/app_colours.dart';
-import 'package:next_gen_match/Features/auth/pages/screens/screen_sign_up.dart';
 import 'package:next_gen_match/Features/auth/provider/auth_provider.dart';
 import 'package:next_gen_match/Features/home/pages/screeens/screen_home.dart';
 import 'package:provider/provider.dart';
 
-class ScreenSignIn extends StatelessWidget {
-  const ScreenSignIn({super.key});
+class ScreenSignUp extends StatelessWidget {
+  const ScreenSignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class ScreenSignIn extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Welcome Back',
+                  'Create Your Profile',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -51,7 +50,7 @@ class ScreenSignIn extends StatelessWidget {
                     if (value == null || value.trim().isEmpty) {
                       return 'Email is required';
                     } else if (!value.contains('@') || !value.contains('.')) {
-                      return 'Please enter a valid email';
+                      return 'Please provide a valid email';
                     }
                     return null;
                   },
@@ -62,6 +61,7 @@ class ScreenSignIn extends StatelessWidget {
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     filled: true,
@@ -70,42 +70,39 @@ class ScreenSignIn extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Password is required';
                     } else if (value.trim().length < 6) {
-                      return 'Password must be at least 6 characters';
+                      return 'Password should be at least 6 characters';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 24),
 
-                // Sign In Button
+                // Sign Up Button
                 SizedBox(
                   width: double.infinity,
                   child: Consumer<AuthProvider>(
                     builder: (context, provider, child) => ElevatedButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          final success = await provider.signIn(
+                          final success = await provider.signUp(
                             mailController.text.trim(),
                             passwordController.text.trim(),
                           );
-
                           if (success) {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (ctx) => const ScreenHome(),
-                              ),
+                                  builder: (ctx) => const ScreenHome()),
                             );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  "Sign in failed. Please try again.",
+                                  'Check your information and try again',
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -123,7 +120,7 @@ class ScreenSignIn extends StatelessWidget {
                       child: provider.isLoading
                           ? const CircularProgressIndicator(color: Colors.white)
                           : const Text(
-                              'Sign In',
+                              'Sign Up',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -133,22 +130,17 @@ class ScreenSignIn extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Go to Sign Up
                 TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: const Text(
-                    'Don\'t have an account?',
+                    'Already have an account?',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (ctx) => const ScreenSignUp()),
-                    );
-                  },
                 ),
               ],
             ),
