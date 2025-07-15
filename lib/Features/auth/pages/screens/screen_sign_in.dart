@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:next_gen_match/Core/Theme/app_colours.dart';
+import 'package:next_gen_match/Core/custom/custom_scaffold.dart';
+import 'package:next_gen_match/Core/sharedpref/auth_sharedpref.dart';
 import 'package:next_gen_match/Features/auth/pages/screens/screen_sign_up.dart';
 import 'package:next_gen_match/Features/auth/provider/auth_provider.dart';
 import 'package:next_gen_match/Features/home/pages/screeens/screen_home.dart';
@@ -14,8 +16,7 @@ class ScreenSignIn extends StatelessWidget {
     final mailController = TextEditingController();
     final passwordController = TextEditingController();
 
-    return Scaffold(
-      backgroundColor: AppColours.mainBackGround,
+    return CustomScaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -36,6 +37,7 @@ class ScreenSignIn extends StatelessWidget {
 
                 // Email Field
                 TextFormField(
+                  style: TextStyle(color: AppColours.secondaryColour),
                   controller: mailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -60,6 +62,7 @@ class ScreenSignIn extends StatelessWidget {
 
                 // Password Field
                 TextFormField(
+                  style: TextStyle(color: AppColours.secondaryColour),
                   controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -95,6 +98,7 @@ class ScreenSignIn extends StatelessWidget {
                           );
 
                           if (success) {
+                            AuthSharedpref().signup();
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -125,6 +129,7 @@ class ScreenSignIn extends StatelessWidget {
                           : const Text(
                               'Sign In',
                               style: TextStyle(
+                                color: AppColours.thirdColour,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),

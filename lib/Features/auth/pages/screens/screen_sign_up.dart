@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:next_gen_match/Core/Theme/app_colours.dart';
+import 'package:next_gen_match/Core/custom/custom_scaffold.dart';
+import 'package:next_gen_match/Core/sharedpref/auth_sharedpref.dart';
 import 'package:next_gen_match/Features/auth/provider/auth_provider.dart';
 import 'package:next_gen_match/Features/home/pages/screeens/screen_home.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +15,7 @@ class ScreenSignUp extends StatelessWidget {
     final mailController = TextEditingController();
     final passwordController = TextEditingController();
 
-    return Scaffold(
-      backgroundColor: AppColours.mainBackGround,
+    return CustomScaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -35,6 +36,7 @@ class ScreenSignUp extends StatelessWidget {
 
                 // Email Field
                 TextFormField(
+                  style: TextStyle(color: AppColours.secondaryColour),
                   controller: mailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -59,6 +61,7 @@ class ScreenSignUp extends StatelessWidget {
 
                 // Password Field
                 TextFormField(
+                  style: TextStyle(color: AppColours.secondaryColour),
                   controller: passwordController,
                   obscureText: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -93,10 +96,12 @@ class ScreenSignUp extends StatelessWidget {
                             passwordController.text.trim(),
                           );
                           if (success) {
+                            AuthSharedpref().signup();
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (ctx) => const ScreenHome()),
+                                builder: (ctx) => const ScreenHome(),
+                              ),
                             );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -122,6 +127,7 @@ class ScreenSignUp extends StatelessWidget {
                           : const Text(
                               'Sign Up',
                               style: TextStyle(
+                                color: AppColours.thirdColour,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),

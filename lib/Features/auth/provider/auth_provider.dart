@@ -14,6 +14,7 @@ Future<bool> signIn(String email, String password) async {
     await AuthServices().signInUser(email, password);
     _isLoading = false;
     notifyListeners();
+    
     return true;
   } catch (e) {
     print('Sign in failed: $e');

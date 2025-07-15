@@ -5,8 +5,8 @@ import 'package:next_gen_match/Features/auth/provider/auth_provider.dart';
 import 'package:next_gen_match/firebase_options.dart';
 import 'package:provider/provider.dart';
 
-void main()async {
-
+const userLoggedIn = 'usserLoggedIn';
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
